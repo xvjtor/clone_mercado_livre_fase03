@@ -11,23 +11,23 @@ Snackbar ao adicionar produto ao carrinho
 
 A estrutura foi organizada para separar responsabilidades entre dados, interface e lógica.
 
-LIB
+LIB  
 │   main.dart  
 │   
 ├───database  
-│       products_database.dart  
+│         products_database.dart  
 │       
 ├───models  
-│       product_model.dart  
+│         product_model.dart  
 │
 ├───pages  
-│       cart_page.dart  
-│       product_page.dart  
+│        cart_page.dart  
+|         product_page.dart  
 │
 ├───stores  
-│       cart_store.dart  
-│       cart_store.g.dart  
-│       stores.dart  
+│        cart_store.dart  
+│        cart_store.g.dart  
+│        stores.dart  
 │
 └───widgets  
         add_cart_button_widget.dart  
