@@ -1,7 +1,9 @@
+import 'package:app_clone_mercado_livre/stores/stores.dart';
 import 'package:app_clone_mercado_livre/widgets/cart_icon_widget.dart';
 import 'package:app_clone_mercado_livre/widgets/product_list_widget.dart';
 import 'package:app_clone_mercado_livre/widgets/search_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
 
 class ProductPage extends StatefulWidget {
   const ProductPage({super.key});
@@ -11,19 +13,11 @@ class ProductPage extends StatefulWidget {
 }
 
 class _ProductPageState extends State<ProductPage> {
-  bool isLoading = true;
-  int results = 0;
-
   @override
   void initState() {
     super.initState();
 
-    Future.delayed(Duration(milliseconds: 1400), () {
-      setState(() {
-        isLoading = false;
-        results = 15;
-      });
-    });
+    productStore.loadProduct();
   }
 
   @override
@@ -31,7 +25,6 @@ class _ProductPageState extends State<ProductPage> {
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
-         
           surfaceTintColor: Colors.transparent,
 
           key: Key("inputSearch"),
@@ -79,7 +72,13 @@ class _ProductPageState extends State<ProductPage> {
                 child: Row(
                   mainAxisAlignment: .spaceBetween,
                   children: [
-                    Text("$results resultados"),
+                    Observer(
+                      builder: (_) {
+                        return Text(
+                          "${productStore.productList.length} resultados",
+                        );
+                      },
+                    ),
                     Spacer(),
                     Text("Filtrar (2)", style: TextStyle(color: Colors.blue)),
                     Icon(Icons.keyboard_arrow_down, color: Colors.blue),
@@ -87,20 +86,24 @@ class _ProductPageState extends State<ProductPage> {
                 ),
               ),
             ),
-            isLoading
-                ? Flexible(
-                    child: Center(
-                      child: CircularProgressIndicator(
-                        color: Colors.amberAccent,
-                      ),
-                    ),
-                  )
-                : Expanded(
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: ProductListWidget(),
-                    ),
-                  ),
+            Observer(
+              builder: (_) {
+                return productStore.isLoading
+                    ? Flexible(
+                        child: Center(
+                          child: CircularProgressIndicator(
+                            color: Colors.amberAccent,
+                          ),
+                        ),
+                      )
+                    : Expanded(
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: ProductListWidget(),
+                        ),
+                      );
+              },
+            ),
           ],
         ),
       ),

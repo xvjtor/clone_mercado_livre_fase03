@@ -1,4 +1,4 @@
-import 'package:app_clone_mercado_livre/database/products_database.dart';
+import 'package:app_clone_mercado_livre/stores/stores.dart';
 import 'package:app_clone_mercado_livre/widgets/add_cart_button_widget.dart';
 import 'package:app_clone_mercado_livre/widgets/rating_widget.dart';
 import 'package:flutter/material.dart';
@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 class ProductListWidget extends StatelessWidget {
   ProductListWidget({super.key});
 
-  final products = productDatabase;
+  final products = productStore.productList;
 
   @override
   Widget build(BuildContext context) {
@@ -14,8 +14,8 @@ class ProductListWidget extends StatelessWidget {
       itemCount: products.length,
       itemBuilder: (context, index) {
         final product = products[index];
-        double finalPrice = product.price * product.id;
-        double installments = finalPrice / 10;
+
+        double installments = product.price / 10;
 
         return Card(
           key: Key("productItem"),
@@ -37,7 +37,11 @@ class ProductListWidget extends StatelessWidget {
                       horizontal: 0,
                       vertical: 15,
                     ),
-                    child: Image.asset(product.image, scale: 2, key: Key("productImage"),),
+                    child: Image.asset(
+                      product.image,
+                      scale: 2,
+                      key: Key("productImage"),
+                    ),
                   ),
                 ),
                 Expanded(
@@ -51,7 +55,7 @@ class ProductListWidget extends StatelessWidget {
                         Text(product.name, style: TextStyle(fontSize: 14)),
                         SizedBox(height: 2),
                         Text(
-                          "R\$ ${finalPrice.toString()}",
+                          "R\$ ${product.price.toString()}",
                           style: TextStyle(fontWeight: .bold, fontSize: 17),
                         ),
 
@@ -84,7 +88,7 @@ class ProductListWidget extends StatelessWidget {
                           style: TextStyle(color: Colors.grey, fontSize: 13),
                         ),
                         SizedBox(height: 2),
-                        RatingWidget(rating: product.rating),
+                        RatingWidget(product: product),
                         SizedBox(height: 20),
 
                         Align(

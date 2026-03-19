@@ -3,13 +3,13 @@ class Product {
   String name;
   double price;
   String image;
-  String rating;
+  double rating;
 
   Product({
     required this.id,
     required this.name,
     required this.price,
     required this.image,
-    required this.rating,
+     this.rating = 0,
   });
 }
