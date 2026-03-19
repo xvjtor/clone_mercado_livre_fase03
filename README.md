@@ -1,16 +1,36 @@
 # app_clone_mercado_livre
 
-A new Flutter project.
+Funcionalidades:  
+Barra de pesquisa na parte superior  
+Ícone de carrinho com contador de produtos  
+Lista de produtos dinâmica  
+Adicionar produto ao carrinho  
+Simulação de carregamento de dados (loading)  
+Avaliação de produtos com estrelas  
+Snackbar ao adicionar produto ao carrinho  
 
-## Getting Started
+## Estrutura do Projeto
+```
+lib/
+├── database/
+│   └── products_database.dart
+├── models/
+│   └── product_model.dart
+├── pages/
+│   ├── cart_page.dart
+│   └── product_page.dart
+├── stores/
+│   ├── cart_store.dart
+│   ├── cart_store.g.dart
+│   └── store.dart
+├── widgets/
+│   ├── add_cart_button_widget.dart
+│   ├── cart_icon_widget.dart
+│   ├── cart_list_widget.dart
+│   ├── product_list_widget.dart
+│   ├── rating_widget.dart
+│   └── search_widget.dart
+└── main.dart
+```
 
-This project is a starting point for a Flutter application.
 
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
